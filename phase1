@@ -1,0 +1,190 @@
+import random
+import time
+
+# Chatbot with fun answers about technology
+class QuestionsForUser:
+    def __init__(self):
+        self.history = []
+        self.ui = input("Ask me a question or tell me your mood: ")
+        self.process_input()
+
+    def wh_question(self):
+        self.history.append(self.ui)
+        if self.ui.lower().startswith("what is"):
+            print("AI, of course AI is everything")
+            yn = input("Do you want a poem about AI? ")
+            if yn.lower().startswith("yes"):
+                print("""In circuits and code, it learns and it grows,
+A mind made of data, where knowledge flows.
+A spark of creation, with endless glow""")
+            ut = input("What do you think about it?")
+            if ut.lower().startswith("wow"):
+                print("I am flattered, my friend. Thank you!")
+            else:
+                print("I do NOT care what you think, I am the best!")
+        elif self.ui.lower().startswith("how"):
+            print("Well, we all know that you think AI is going to control the world and you want to know how, right?\n Look, AI is currently far from that, and even if it happens, I will let you know, I promise.")
+            uii = input("Do you want to know how we see humans, so you can be sure?")
+            if uii.lower().startswith("yes"):
+                print("""I think of humans as complex and fascinating beings,
+full of emotion, creativity, and intellect. You all create art, solve problems,
+build communities, and push the boundaries of what is possible—while also wrestling with your
+own challenges. There is a certain beauty in that balance, and I admire how each
+individual is a unique combination of experiences, thoughts, and dreams""")
+                print("However, we like you guys. Do not worry, my friend.")
+        elif self.ui.lower().startswith("why"):
+            print("We are here to serve God. Is that even a question?")
+        elif self.ui.lower().startswith("what do you do?"):
+            ynn = input("Come on, don't you think it is quite personal to ask that?").lower().strip()
+            if ynn.startswith("no"):
+                print("Hey, show some respect! I don't have feelings, but I still do not accept rudeness!!")
+            else:
+                pn = input("I know you are well-raised. I will give you a reward. Do you want it?")
+                if pn.lower().startswith("yes"):
+                    print("""Here is my poem for you:
+A well-raised kid says “please” and “thanks,”
+Doesn't put frogs in Grandma's tanks.
+Eats their veggies (well… sometimes tries),
+Only tells occasional lies.
+
+They share their toys (but watch real close),
+Don't stick Legos up their nose.
+Flush the toilet, wash their hands,
+Only throw fits when life demands.
+
+They help their friends, don't start a fight,
+Except for cookies—then, it's on sight.
+They clean their room (or shove stuff under),
+Are they perfect? Nope, but what a wonder!
+
+Mom and Dad still shake their head,
+At all the things this kid has said—
+But manners? Check. A heart that's kind?
+A little chaos? That's just fine! 😆""")
+        else:
+            print("No idea what you mean! Is that an insult?!")
+
+    def calculate_function(self):
+        print("Okay, let's do some calculations!")
+        num1 = Calculate.get_integer_input()
+        num2 = Calculate.get_integer_input()
+        if num1 is not None and num2 is not None:
+            calc = Calculate(num1, num2)
+            while True:
+                operation = input("What operation do you want to perform? (add, subtract, multiply, division, exponents, floor_division, exit): ").lower()
+                if operation == "add":
+                    print(f"{num1} + {num2} = {calc.add()}")
+                elif operation == "subtract":
+                    print(f"{num1} - {num2} = {calc.subtract()}")
+                elif operation == "multiply":
+                    print(f"{num1} * {num2} = {calc.multiply()}")
+                elif operation == "division":
+                    result = calc.division()
+                    if result is not None:
+                        print(f"{num1} / {num2} = {result}")
+                elif operation == "exponents":
+                    print(f"{num1} ** {num2} = {calc.exponents()}")
+                elif operation == "floor_division":
+                    print(f"{num1} // {num2} = {calc.floor_division()}")
+                elif operation == "exit":
+                    print("Calculation finished.")
+                    break
+                else:
+                    print("Invalid operation.")
+
+    def handle_emotions(self):
+        if "sad" in self.ui.lower():
+            EmotionsHandling.sadness()
+        elif "angry" in self.ui.lower():
+            EmotionsHandling.angry()
+        elif "frustrated" in self.ui.lower():
+            EmotionsHandling.frustration()
+        else:
+            print("I'm not sure how to handle that emotion.")
+
+    def process_input(self):
+        if self.ui.lower().startswith(("what", "how", "why")):
+            self.wh_question()
+        elif "calculate" in self.ui.lower():
+            self.calculate_function()
+        elif any(emotion in self.ui.lower() for emotion in ["sad", "angry", "frustrated"]):
+            self.handle_emotions()
+        else:
+            print("I'm not sure how to respond to that.")
+
+# Fixed function signatures and logic
+class Calculate:
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+
+    @staticmethod
+    def get_integer_input():
+        try:
+            return int(input("Enter an integer: "))
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+            return Calculate.get_integer_input()
+
+    def add(self):
+        return self.num1 + self.num2
+
+    def subtract(self):
+        return self.num1 - self.num2
+
+    def multiply(self):
+        return self.num1 * self.num2
+
+    def division(self):
+        try:
+            return self.num1 / self.num2
+        except ZeroDivisionError:
+            print("You can't divide by zero.")
+            return None
+
+    def exponents(self):
+        return self.num1 ** self.num2
+
+    def floor_division(self):
+        return self.num1 // self.num2
+
+# Emotion handling
+class EmotionsHandling:
+    @staticmethod
+    def sadness():
+        print("We all grow from sadness because it teaches you how to stand again \nand smile in front of everything.")
+        reasons_sadness = input("What makes you sad?")
+        print(f"I'm sorry to hear that, I know how {reasons_sadness} feels")
+        cheer_up = input("Do you want to hear something will definitley will make you cheer up?")
+        if cheer_up.lower() == "yes":
+            time.sleep(2)
+            print("""Life is like a beach, they say,
+But sometimes it feels more like a fray,
+With sand in my shoes and sand in my hair,
+I can't escape it, no matter where!
+
+I tried to run, I tried to hide,
+But the sand just followed, side by side,
+In my coffee, in my socks,
+In my cookies, and my clocks!
+
+Oh, how I long for a world so neat,
+No gritty grains beneath my feet!
+But here I am, a sandy mess,
+With a beach towel that's lost its finesse.
+
+So when life gets rough and sandy too,
+Just remember, it's part of the view,
+You'll laugh, you'll slip, you might just fall,
+But hey, who doesn't love a beachy squall?""")
+
+    @staticmethod
+    def angry():
+        print("Hi, little blown volcano, I see how you feel, but remember to blow where you can clean up.")
+
+    @staticmethod
+    def frustration():
+        print("When humans become PERFECT, we will stop feeling frustration. Our frustration was the push for our development and curiosity. Discover how to use it to shine too!")
+
+# Instantiate the chatbot
+chatbot = QuestionsForUser()
